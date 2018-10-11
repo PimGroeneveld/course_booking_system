@@ -1,10 +1,13 @@
 package com.example.codeclan.courseBookings.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "bookings")
-public class Booking {
+public class Booking implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,10 +16,12 @@ public class Booking {
     @Column(name = "date")
     private String date;
 
+    @JsonIgnoreProperties("booking")
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
+    @JsonIgnoreProperties("booking")
     @ManyToOne
     @JoinColumn(name = "course_id", nullable = false)
     private Course course;
